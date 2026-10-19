@@ -1,0 +1,1 @@
+import{u as e}from"./chunk-OB3PAWPO-DWhp1q-c.js";var t=e();function n({name:e,fill:n=!1,size:r=20,className:i=``}){return(0,t.jsx)(`span`,{className:`icon ${i}`,"aria-hidden":!0,style:{fontSize:r,fontVariationSettings:`'FILL' ${+!!n}`},children:e})}export{n as t};
