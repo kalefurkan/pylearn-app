@@ -491,6 +491,24 @@ class Misc:
 
     forget = pack_forget
 
+    def _info(self, manager):
+        if not self._geom or self._geom['manager'] != manager:
+            raise TclError('window "%s" isn\\'t %s' % (self._path, 'packed' if manager == 'pack' else 'managed by ' + manager))
+        return self._geom['opts']
+
+    def pack_info(self):
+        o = self._info('pack')
+        return {'in': self.master, 'anchor': o['anchor'], 'expand': 1 if o['expand'] else 0, 'fill': o['fill'], 'ipadx': o['ipadx'], 'ipady': o['ipady'], 'padx': o['padx'], 'pady': o['pady'], 'side': o['side']}
+
+    def grid_info(self):
+        o = self._info('grid')
+        sticky = ''.join(ch for ch in 'nesw' if ch in str(o['sticky']).lower())
+        return {'in': self.master, 'column': o['column'], 'row': o['row'], 'columnspan': o['columnspan'], 'rowspan': o['rowspan'], 'ipadx': o['ipadx'], 'ipady': o['ipady'], 'padx': o['padx'], 'pady': o['pady'], 'sticky': sticky}
+
+    def place_info(self):
+        o = self._info('place')
+        return {'in': self.master, 'x': o['x'], 'y': o['y'], 'relx': o['relx'] if o['relx'] is not None else 0, 'rely': o['rely'] if o['rely'] is not None else 0, 'anchor': o['anchor'], 'width': o['width'] if o['width'] is not None else '', 'height': o['height'] if o['height'] is not None else '', 'bordermode': 'inside'}
+
     def grid(self, cnf=None, **kw):
         opts = dict(cnf or {}, **kw)
         for k in opts:
@@ -1518,6 +1536,18 @@ class Menu(Misc):
             e[_canon(k)] = v
 
     entryconfig = entryconfigure
+
+    def index(self, index):
+        if index in ('end', END, 'last'):
+            return len(self._entries) - 1 if self._entries else None
+        return int(index)
+
+    def entrycget(self, index, option):
+        e = self._entries[self.index(index)]
+        return e.get(_canon(option))
+
+    def type(self, index):
+        return self._entries[self.index(index)]['type']
 
     def tk_popup(self, x, y, entry=''):
         pass
