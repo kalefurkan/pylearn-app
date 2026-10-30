@@ -1,0 +1,1 @@
+var e=e=>{let t=2166136261;for(let n=0;n<e.length;n++)t^=e.charCodeAt(n),t=Math.imul(t,16777619)>>>0;return t.toString(16).padStart(8,`0`)},t=t=>e(JSON.stringify([t.instructions,t.testCases]));function n(e,n){for(let r of e.modules)for(let e of r.lessons)for(let r of[...e.exercises,...e.practice])if(r.id===n)return t(r)}export{n,t};
