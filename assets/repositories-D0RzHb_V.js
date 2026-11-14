@@ -1,1 +1,0 @@
-import{i as e}from"./progress-CHrFOBPs.js";var t=()=>({theme:`dark`,editorFontSize:15,displayName:``,dailyGoalMinutes:10,onboarded:!1,goal:``,level:`beginner`,startModuleId:`m1`,reminder:`off`});function n(t){let n=e();return!t||typeof t!=`object`?n:{...n,...t,schemaVersion:1}}export{n,t};
